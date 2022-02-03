@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Animation from "./Screens/Animation";
 import Gestures from "./Screens/Gestures";
+import NotificationBox from "./Screens/NotificationBox";
 import VibrationApi from "./Screens/VibrationApi";
 
 export default function App() {
@@ -15,7 +16,8 @@ export default function App() {
       </GestureHandlerRootView> */}
 
       {/* <Animation /> */}
-      <VibrationApi />
+      {/* <VibrationApi /> */}
+      <NotificationBox />
     </View>
   );
 }
