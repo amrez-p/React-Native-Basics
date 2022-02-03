@@ -3,24 +3,36 @@ import React from "react";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   useAnimatedStyle,
+  useDerivedValue,
   useSharedValue,
+  withSpring,
 } from "react-native-reanimated";
 
 const Gestures = () => {
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
 
-  const Gest = Gesture.Pan().onUpdate((event) => {
-    translateX.value = event.translationX;
-    translateY.value = event.translationY;
+  const context = useSharedValue({ x: 0, y: 0 });
+
+  const Gest = Gesture.Pan()
+    .onStart(() => {
+      context.value = { x: translateX.value, y: translateY.value };
+    })
+    .onUpdate((event) => {
+      translateX.value = event.translationX + context.value.x;
+      translateY.value = event.translationY + context.value.y;
+    });
+
+  const followX = useDerivedValue(() => {
+    return withSpring(translateX.value);
+  });
+  const followY = useDerivedValue(() => {
+    return withSpring(translateY.value);
   });
 
   const rStyle = useAnimatedStyle(() => {
     return {
-      transform: [
-        { translateX: translateX.value },
-        { translateY: translateY.value },
-      ],
+      transform: [{ translateX: followX.value }, { translateY: followY.value }],
     };
   });
   return (

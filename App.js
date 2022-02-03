@@ -3,17 +3,19 @@ import { StyleSheet, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Animation from "./Screens/Animation";
 import Gestures from "./Screens/Gestures";
+import VibrationApi from "./Screens/VibrationApi";
 
 export default function App() {
   return (
     <View style={styles.container}>
+      <StatusBar style="auto" />
       {/* <GestureHandlerRootView> is important to get gestures working */}
-      <GestureHandlerRootView>
-        <StatusBar style="auto" />
-        {/* <Animation /> */}
-
+      {/* <GestureHandlerRootView>
         <Gestures />
-      </GestureHandlerRootView>
+      </GestureHandlerRootView> */}
+
+      {/* <Animation /> */}
+      <VibrationApi />
     </View>
   );
 }
